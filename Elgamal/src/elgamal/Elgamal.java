@@ -182,6 +182,12 @@ public class Elgamal extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setText("Bản mã:");
 
+        txtBanMa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBanMa1ActionPerformed(evt);
+            }
+        });
+
         btnGuiBanMa.setText("Gửi bản mã");
         btnGuiBanMa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,7 +281,7 @@ public class Elgamal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(106, 106, 106)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 123, Short.MAX_VALUE)
+                            .addComponent(btnAuto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(30, 30, 30)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -319,7 +325,7 @@ public class Elgamal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(81, 81, 81)
                         .addComponent(btnLuuBanRo)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -546,7 +552,7 @@ public class Elgamal extends javax.swing.JFrame {
             }
             if (p < max){
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập p là SNT và lớn hơn " + max);
-                }
+                } 
             else{
                 ArrayList<Integer> arrayBanMa = new ArrayList<>();
                 for (int i = 0; i < banRo.length(); i++){
@@ -577,7 +583,7 @@ public class Elgamal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXoaBanMaActionPerformed
 
     private void btnGiaiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaiMaActionPerformed
-        String banMa = txtBanMa1.getText();
+        String banMa = txtBanMa2.getText();
         int a = Integer.parseInt(txtA.getText());
         int p = Integer.parseInt(txtP.getText());
         int alpha = Integer.parseInt(txtAlpha.getText());
@@ -640,6 +646,10 @@ public class Elgamal extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }        // TODO add your handling code here:
     }//GEN-LAST:event_btnLuuBanRoActionPerformed
+
+    private void txtBanMa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBanMa1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBanMa1ActionPerformed
 
     /**
      * @param args the command line arguments

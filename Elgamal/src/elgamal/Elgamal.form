@@ -126,7 +126,7 @@
                       <Component id="btnLuuBanRo" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="39" max="32767" attributes="0"/>
+              <EmptySpace pref="52" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -386,6 +386,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtBanMa1">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBanMa1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnGuiBanMa">
       <Properties>
