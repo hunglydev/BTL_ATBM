@@ -294,12 +294,7 @@ public class Elgamal extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(41, 41, 41)
-                        .addComponent(jButton4))
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnMaHoa, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -310,7 +305,15 @@ public class Elgamal extends javax.swing.JFrame {
                         .addComponent(btnGuiBanMa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnLuuBanMa))
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(41, 41, 41)
+                                .addComponent(jButton4))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(12, 12, 12)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,9 +407,9 @@ public class Elgamal extends javax.swing.JFrame {
                                     .addGap(18, 18, 18)
                                     .addComponent(txtBanRo1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(btnXoaBanRo)
-                                        .addComponent(btnMaHoa))
+                                        .addComponent(btnMaHoa, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(18, 18, 18)
                                     .addComponent(jLabel10)
                                     .addGap(18, 18, 18)
@@ -421,11 +424,11 @@ public class Elgamal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
    
-    private boolean CheckSNT(int n) {
+    private boolean CheckSNT(long n) {
         if (n < 2) {
             return false;
         }
-        for (int i = 2; i <= Math.sqrt(n); i++) {
+        for (long i = 2; i <= Math.sqrt(n); i++) {
             if (n % i == 0) {
                 return false;
             }
@@ -433,8 +436,8 @@ public class Elgamal extends javax.swing.JFrame {
         return true;
     }
     
-    private int BinhPhuongNhan (int a, int b, int x){
-        int result = 1;
+    private long BinhPhuongNhan (long a, long b, long x){
+        long result = 1;
         a = a % x;
         while(b > 0){
             if (b % 2 == 1){
@@ -528,14 +531,14 @@ public class Elgamal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui long nhap day du thong tin");
         }
         else{
-        int p = Integer.parseInt(txtP.getText());
+        long p = Long.parseLong(txtP.getText());
         if (CheckSNT(p)){
-            int alpha = Integer.parseInt(txtAlpha.getText());
-            int a = Integer.parseInt(txtA.getText());
-            int beta = BinhPhuongNhan(alpha, a, p);
+            long alpha = Long.parseLong(txtAlpha.getText());
+            long a = Long.parseLong(txtA.getText());
+            long beta = BinhPhuongNhan(alpha, a, p);
             txtBeta.setText(beta+"");
             Random random = new Random();
-            int k = random.nextInt((p - 2) + 1);
+            long k = random.nextLong((p - 2) + 1);
             txtK.setText("" + k);
         }
         else{
@@ -549,7 +552,7 @@ public class Elgamal extends javax.swing.JFrame {
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Documents (*.docx, *.txt)", "docx", "txt");
     fileChooser.setFileFilter(filter);
 
-    int returnValue = fileChooser.showOpenDialog(null);
+    long returnValue = fileChooser.showOpenDialog(null);
     if (returnValue == JFileChooser.APPROVE_OPTION) {
         File selectedFile = fileChooser.getSelectedFile();
         try {
@@ -592,14 +595,14 @@ public class Elgamal extends javax.swing.JFrame {
 
     private void btnAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoActionPerformed
         Random random = new Random();
-        int max = 45000, min = 300;
-        int p, a, alpha, beta, k;
+        long max = 60000, min = 400;
+        long p, a, alpha, beta, k;
         do {
-            p = random.nextInt((max - min) + 1) + min;
+            p = random.nextLong((max - min) + 1) + min;
         } while (CheckSNT(p) == false);
-         alpha = random.nextInt((p - 1) + 1) + 1;
-         k = random.nextInt((p - 2) + 1);
-         a = random.nextInt((p - 2) + 1) + 2;
+         alpha = random.nextLong((p - 1) + 1) + 1;
+         k = random.nextLong((p - 2) + 1);
+         a = random.nextLong((p - 2) + 1) + 2;
          beta = BinhPhuongNhan(alpha, a, p);
          txtP.setText(p+"");
          txtA.setText(a+"");
@@ -615,14 +618,15 @@ public class Elgamal extends javax.swing.JFrame {
         }
         else{       
             String banRo = txtBanRo1.getText();
-            int p = Integer.parseInt(txtP.getText());
-            int alpha = Integer.parseInt(txtAlpha.getText());
-            int k = Integer.parseInt(txtK.getText());
-            int beta = Integer.parseInt(txtBeta.getText());
-            //Tao bien tim gia tri int lon nhat cua ban ro 
-            int max = 0, temp;
+            long p = Long.parseLong(txtP.getText());
+            long alpha = Long.parseLong(txtAlpha.getText());
+            long k = Long.parseLong(txtK.getText());
+            long beta = Long.parseLong(txtBeta.getText());
+            long y = BinhPhuongNhan(alpha, k, p);
+            //Tao bien tim gia tri lon nhat cua ban ro 
+            long max = 0, temp;
             for (int i = 0; i < banRo.length(); i++) {
-                temp = (int) banRo.charAt(i);
+                temp = (long) banRo.charAt(i);
                 if (temp > max) {
                     max = temp;
                 }
@@ -630,15 +634,16 @@ public class Elgamal extends javax.swing.JFrame {
             if (p < max){
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập p là SNT và lớn hơn " + max);
                 } 
-            else{
-                ArrayList<Integer> arrayBanMa = new ArrayList<>();
+            else{   
+                ArrayList<Long> arrayBanMa = new ArrayList<>();
                 for (int i = 0; i < banRo.length(); i++){
-                    int y =(banRo.charAt(i) % p)*BinhPhuongNhan(beta, k, p) % p;
+                    long gama =(banRo.charAt(i) % p)*BinhPhuongNhan(beta, k, p) % p;
                     arrayBanMa.add(y);
+                    arrayBanMa.add(gama);
                     }
                 String banMa = "";
                 for (int i = 0; i < arrayBanMa.size(); i++){
-                    int c = arrayBanMa.get(i);
+                    long c = arrayBanMa.get(i);
                     banMa += (char)c;
                     }
                 txtBanMa1.setText(banMa);
@@ -661,20 +666,20 @@ public class Elgamal extends javax.swing.JFrame {
 
     private void btnGiaiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaiMaActionPerformed
         String banMa = txtBanMa2.getText();
-        int a = Integer.parseInt(txtA.getText());
-        int p = Integer.parseInt(txtP.getText());
-        int alpha = Integer.parseInt(txtAlpha.getText());
-        int k = Integer.parseInt(txtK.getText());
-        int y = BinhPhuongNhan(alpha, k, p);
-        int y1 = BinhPhuongNhan(y, p-1-a, p);
-        ArrayList <Integer> banRoArrayList = new ArrayList<>();
-        for (int i = 0; i < banMa.length(); i++){
+        long a = Long.parseLong(txtA.getText());
+        long p = Long.parseLong(txtP.getText());
+        long alpha = Long.parseLong(txtAlpha.getText());
+
+        ArrayList <Long> banRoArrayList = new ArrayList<>();
+        for (int i = 1; i < banMa.length(); i+=2){
             char c = banMa.charAt(i);
-            banRoArrayList.add((int)c);
+            banRoArrayList.add((long)c);
         }
+        long y = banMa.charAt(0);
+        long y1 = BinhPhuongNhan(y, p-1-a, p);
         String banRo = "";
-        for (int i = 0; i < banMa.length(); i++){
-            int r = y1 * banRoArrayList.get(i) % p;
+        for (int i = 0; i < banRoArrayList.size(); i++){
+            long r = y1 * banRoArrayList.get(i) % p;
             banRo+= (char) r;
         }
         txtBanRo2.setText(banRo);
