@@ -5,7 +5,10 @@
 package elgamal;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,6 +16,11 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 /**
  *
@@ -437,6 +445,60 @@ public class Elgamal extends javax.swing.JFrame {
         }
         return result;
     }
+    private void saveToDocxBanRo(File file) {
+    XWPFDocument document = new XWPFDocument();
+    XWPFParagraph paragraph = document.createParagraph();
+    XWPFRun run = paragraph.createRun();
+    String content = txtBanRo2.getText();
+    run.setText(content);
+
+    try {
+        FileOutputStream fos = new FileOutputStream(file);
+        document.write(fos);
+        fos.close();
+        document.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+      private void saveToDocxBanMa(File file) {
+    XWPFDocument document = new XWPFDocument();
+    XWPFParagraph paragraph = document.createParagraph();
+    XWPFRun run = paragraph.createRun();
+    String content = txtBanMa1.getText();
+    run.setText(content);
+
+    try {
+        FileOutputStream fos = new FileOutputStream(file);
+        document.write(fos);
+        fos.close();
+        document.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+    
+    private void saveToTxtBanMa(File file) {
+    String content = txtBanMa1.getText();
+    try {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        writer.write(content);
+        writer.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+     private void saveToTxtBanRo(File file) {
+    String content = txtBanRo2.getText();
+    try {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        writer.write(content);
+        writer.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
     private void txtPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPActionPerformed
@@ -483,21 +545,36 @@ public class Elgamal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTaoKhoaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-         JFileChooser jFileChooser = new JFileChooser();
-        int respone = jFileChooser.showOpenDialog(null);
-        if (respone == JFileChooser.APPROVE_OPTION) {
-            File file = new File(jFileChooser.getSelectedFile().getAbsolutePath());
-            try {
-                BufferedReader out;
-                try (FileReader fileReader = new FileReader(file)) {
-                    out = new BufferedReader(fileReader);
-                    txtBanRo1.setText(out.readLine());
+  JFileChooser fileChooser = new JFileChooser();
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Documents (*.docx, *.txt)", "docx", "txt");
+    fileChooser.setFileFilter(filter);
+
+    int returnValue = fileChooser.showOpenDialog(null);
+    if (returnValue == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        try {
+            String fileContent = "";
+            if (selectedFile.getName().endsWith(".docx")) {
+                FileInputStream fis = new FileInputStream(selectedFile.getAbsolutePath());
+                XWPFDocument document = new XWPFDocument(fis);
+                XWPFWordExtractor extractor = new XWPFWordExtractor(document);
+                fileContent = extractor.getText();
+                extractor.close();
+                fis.close();
+            } else if (selectedFile.getName().endsWith(".txt")) {
+                BufferedReader br = new BufferedReader(new FileReader(selectedFile.getAbsolutePath()));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    fileContent += line + "\n";
                 }
-                out.close();
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
+                br.close();
             }
-        }        // TODO add your handling code here:
+
+            txtBanRo1.setText(fileContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -604,47 +681,84 @@ public class Elgamal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGiaiMaActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-            JFileChooser jFileChooser = new JFileChooser();
-        int respone = jFileChooser.showOpenDialog(null);
-        if (respone == JFileChooser.APPROVE_OPTION) {
-            File file = new File(jFileChooser.getSelectedFile().getAbsolutePath());
-            try {
-                BufferedReader out;
-                try (FileReader fileReader = new FileReader(file)) {
-                    out = new BufferedReader(fileReader);
-                    txtBanMa2.setText(out.readLine());
+          JFileChooser fileChooser = new JFileChooser();
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Documents (*.docx, *.txt)", "docx", "txt");
+    fileChooser.setFileFilter(filter);
+
+    int returnValue = fileChooser.showOpenDialog(null);
+    if (returnValue == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        try {
+            String fileContent = "";
+            if (selectedFile.getName().endsWith(".docx")) {
+                FileInputStream fis = new FileInputStream(selectedFile.getAbsolutePath());
+                XWPFDocument document = new XWPFDocument(fis);
+                XWPFWordExtractor extractor = new XWPFWordExtractor(document);
+                fileContent = extractor.getText();
+                extractor.close();
+                fis.close();
+            } else if (selectedFile.getName().endsWith(".txt")) {
+                BufferedReader br = new BufferedReader(new FileReader(selectedFile.getAbsolutePath()));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    fileContent += line + "\n";
                 }
-                out.close();
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
+                br.close();
             }
-        }        // TODO add your handling code here:
+
+            txtBanMa2.setText(fileContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        }   // TODO add your handling code here:
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void btnLuuBanMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuBanMaActionPerformed
-        JFileChooser jFileChooser = new JFileChooser();
-        jFileChooser.showSaveDialog(null);
-        File file = jFileChooser.getSelectedFile();
-        try {
-            try (FileWriter fileWriter = new FileWriter(file)) {
-                fileWriter.write(txtBanMa1.getText());
+
+    JFileChooser fileChooser = new JFileChooser();
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Documents (*.docx, *.txt)", "docx", "txt");
+    fileChooser.setFileFilter(filter);
+
+    int returnValue = fileChooser.showSaveDialog(null);
+    if (returnValue == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        String fileName = selectedFile.getAbsolutePath();
+        if (selectedFile.getName().endsWith(".docx")) {
+            if (!fileName.toLowerCase().endsWith(".docx")) {
+                fileName += ".docx";
             }
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }        // TODO add your handling code here:
+            saveToDocxBanMa(new File(fileName));
+        } else if (selectedFile.getName().endsWith(".txt")) {
+            if (!fileName.toLowerCase().endsWith(".txt")) {
+                fileName += ".txt";
+            }
+            saveToTxtBanMa(new File(fileName));
+        }
+    }
     }//GEN-LAST:event_btnLuuBanMaActionPerformed
 
     private void btnLuuBanRoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuBanRoActionPerformed
-        JFileChooser jFileChooser = new JFileChooser();
-        jFileChooser.showSaveDialog(null);
-        File file = jFileChooser.getSelectedFile();
-        try {
-            try (FileWriter fileWriter = new FileWriter(file)) {
-                fileWriter.write(txtBanRo2.getText());
+
+ JFileChooser fileChooser = new JFileChooser();
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Documents (*.docx, *.txt)", "docx", "txt");
+    fileChooser.setFileFilter(filter);
+
+    int returnValue = fileChooser.showSaveDialog(null);
+    if (returnValue == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        String fileName = selectedFile.getAbsolutePath();
+        if (selectedFile.getName().endsWith(".docx")) {
+            if (!fileName.toLowerCase().endsWith(".docx")) {
+                fileName += ".docx";
             }
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }        // TODO add your handling code here:
+            saveToDocxBanRo(new File(fileName));
+        } else if (selectedFile.getName().endsWith(".txt")) {
+            if (!fileName.toLowerCase().endsWith(".txt")) {
+                fileName += ".txt";
+            }
+            saveToTxtBanRo(new File(fileName));
+        }
+    }
     }//GEN-LAST:event_btnLuuBanRoActionPerformed
 
     private void txtBanMa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBanMa1ActionPerformed
