@@ -595,7 +595,7 @@ public class Elgamal extends javax.swing.JFrame {
 
     private void btnAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoActionPerformed
         Random random = new Random();
-        long max = 60000, min = 400;
+        long max = 60000, min = 300;
         long p, a, alpha, beta, k;
         do {
             p = random.nextLong((max - min) + 1) + min;
@@ -612,6 +612,7 @@ public class Elgamal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAutoActionPerformed
 
     private void btnMaHoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaHoaActionPerformed
+        try{
         if (txtA.getText().equals("")||txtAlpha.getText().equals("")||txtBeta.getText().equals("")||
                 txtK.getText().equals("")|| txtP.getText().equals("")){
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin các trường");
@@ -649,6 +650,10 @@ public class Elgamal extends javax.swing.JFrame {
                 txtBanMa1.setText(banMa);
                 }
             }
+        }
+        catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Vui long thu lai sau");
+        }
         
     }//GEN-LAST:event_btnMaHoaActionPerformed
 
@@ -665,6 +670,7 @@ public class Elgamal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXoaBanMaActionPerformed
 
     private void btnGiaiMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaiMaActionPerformed
+        try{
         String banMa = txtBanMa2.getText();
         long a = Long.parseLong(txtA.getText());
         long p = Long.parseLong(txtP.getText());
@@ -683,6 +689,10 @@ public class Elgamal extends javax.swing.JFrame {
             banRo+= (char) r;
         }
         txtBanRo2.setText(banRo);
+        }
+        catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Vui long thu lai sau");
+        }
     }//GEN-LAST:event_btnGiaiMaActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
